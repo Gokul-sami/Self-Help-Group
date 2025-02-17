@@ -6,7 +6,6 @@ body {
   justify-content: start;
   align-items: center;
   flex-direction: column;
-  top: 0;
   height: 100vh;
   background: linear-gradient(180deg, #DE1369 0%, #FF9445 100%);
   font-family: 'Inter', sans-serif;
