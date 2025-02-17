@@ -3,11 +3,17 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  flex-direction: column;
+  top: 0;
   height: 100vh;
   background: linear-gradient(180deg, #DE1369 0%, #FF9445 100%);
   font-family: 'Inter', sans-serif;
+}
+
+.sheFunds_img{
+  top: 0;
 }
 
 /* Login Container */
@@ -29,6 +35,7 @@ body {
 
 /* Form Fields */
 .form-group {
+  width: 100%;
   margin-bottom: 20px;
   text-align: left;
 }
@@ -46,6 +53,7 @@ body {
   border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 /* Login Button */
