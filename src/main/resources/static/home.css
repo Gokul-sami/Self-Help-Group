@@ -1,0 +1,127 @@
+/* Main Container */
+.home-phone {
+    position: relative;
+    width: 440px;
+    height: 956px;
+    background: linear-gradient(180deg, #DE1369 0%, #FF9445 100%);
+    opacity: 0.88;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Header Elements */
+.menu {
+    position: absolute;
+    width: 51px;
+    height: 53px;
+    left: 11px;
+    top: 13px;
+    background: #ffffff10;
+}
+
+.header-icon {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 388px;
+    top: 22px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* Search Bar */
+.search-bar {
+    position: absolute;
+    width: 360px;
+    height: 50px;
+    left: 46px;
+    top: 79px;
+    background: #ECE6F0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 28px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    height: 100%;
+}
+
+.search-text {
+    font-size: 16px;
+    color: #49454F;
+}
+
+.search-icon {
+    width: 24px;
+    height: 24px;
+    background: #49454F;
+    mask: url(search-icon.svg) no-repeat center;
+}
+
+/* Cards */
+.card {
+    position: absolute;
+    width: 394px;
+    height: 192px;
+    left: 23px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.resolution-card {
+    top: 305px;
+}
+
+.ledger-card {
+    top: 523px;
+}
+
+.savings-card {
+    top: 741px;
+}
+
+.card h2 {
+    font-size: 32px;
+    font-weight: 400;
+    color: #210202;
+    margin: 0;
+}
+
+.arrow-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 24px;
+    height: 24px;
+    border: 4px solid #1E1E1E;
+    transform: rotate(45deg);
+    border-left: none;
+    border-bottom: none;
+}
+
+/* User Section */
+.user-circle {
+    position: absolute;
+    width: 46px;
+    height: 44px;
+    right: 20px;
+    top: 20px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.logo {
+    position: absolute;
+    width: 142px;
+    height: 79px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    background: url('logo.png') no-repeat center;
+}
