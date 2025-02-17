@@ -4,38 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../static/home.css">
 </head>
 <body>
-    <div class="home-phone">
-        <div class="menu"></div>
-        <div class="header-icon"></div>
-        <div class="group-3"></div>
-        <div class="user-circle"></div>
-        <div class="user-icon"></div>
-        
-        <div class="search-bar">
-            <div class="search-container">
-                <span class="search-text">Search</span>
-                <div class="search-icons">
-                    <div class="search-icon"></div>
-                </div>
+    <div class="dashboard-container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Logo"> 
             </div>
-        </div>
+            <div class="user-profile">
+                <img src="user-avatar.jpg" alt="User Avatar">
+                <div class="user-name">John Doe</div> </div>
+        </header>
 
-        <div class="logo"></div>
-        <div class="card resolution-card">
-            <h2>Resolution</h2>
-            <div class="arrow-icon"></div>
-        </div>
-        <div class="card ledger-card">
-            <h2>Ledger</h2>
-            <div class="arrow-icon"></div>
-        </div>
-        <div class="card savings-card">
-            <h2>Monthly Savings</h2>
-            <div class="arrow-icon"></div>
-        </div>
+        <main>
+            <section class="overview">
+                <h2>Overview</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <i class="fas fa-chart-line"></i>  <h3>Resolution</h3>
+                        <p>Track your financial goals.</p>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-money-bill-trend-up"></i>
+                        <h3>Ledger</h3>
+                        <p>Manage your transactions.</p>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-piggy-bank"></i>
+                        <h3>Monthly Savings</h3>
+                        <p>See your savings progress.</p>
+                        <a href="#" class="view-details">View Details</a>
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+
+        <nav>
+            <ul>
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
     </div>
 </body>
 </html>
