@@ -24,11 +24,11 @@ public class LoginController {
     public String getMethodName(@RequestParam String username, @RequestParam String password, Model model) {
         Login user = serv.log(username, password);
         if(user != null){
-            model.addAttribute(attributeName:'message', attributeValue:'Login Successful');
+            // model.addAttribute(attributeName:'message', attributeValue:'Login Successful');
             return "redirect:home";
         }
         else{
-            model.addAttribute(attributeName:'error', attributeValue:'Login Failed');
+            // model.addAttribute(attributeName:'error', attributeValue:'Login Failed');
             return "redirect:login";
         }
     }
