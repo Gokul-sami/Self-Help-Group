@@ -23,6 +23,13 @@ public class LoginController {
     @GetMapping("/login")
     public String getMethodName(@RequestParam String username, @RequestParam String password, Model model) {
         Login user = serv.log(username, password);
-        return "redirect:home";
+        if(user != null){
+            model.addAttribute(attributeName:'message', attributeValue:'Login Successful');
+            return "redirect:home";
+        }
+        else{
+            model.addAttribute(attributeName:'error', attributeValue:'Login Failed');
+            return "redirect:login";
+        }
     }
 }
