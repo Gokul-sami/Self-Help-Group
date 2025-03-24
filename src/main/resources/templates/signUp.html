@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SHE-SHG SginUp</title>
-  <link rel="stylesheet" href="../static/login.css">
+  <link rel="stylesheet" th:href="@{../login.css}">
 </head>
 <body>
-  <img class="sheFunds_img" src="../static/images/sheFunds.png" alt="SheFunds" width="80%">
+  <img class="sheFunds_img" th:src="@{../images/sheFunds.png}" alt="SheFunds" width="80%">
   <div class="login-container">
     <!-- <h1>SHE-SHG</h1> -->
-    <form action="./home.html">
+    <form th:action="@{/SignUp}" method="post">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" id="username" placeholder="Enter your username" required>
@@ -21,9 +21,11 @@
       </div>
       <button type="submit" class="login-btn">SignUp</button>
     </form>
-    <p class="signup-text">Already have an account? <a href="./login.html">Login</a></p>
+    <form th:action="@{/login}" method="get">
+      <p class="signup-text">Already have an account? </p> <button type="submit"> Login </button>  
+    </form>
   </div>
 
-  <script src="../static/script.js"></script>
+  <script th:src="@{../script.js}"></script>
 </body>
 </html>

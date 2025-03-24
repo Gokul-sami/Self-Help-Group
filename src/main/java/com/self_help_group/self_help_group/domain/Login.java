@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 // to connect to db with functions
 @Entity
-@Table(name == "users")
+@Table(name = "users")
 public class Login {
     @Id
     private String username;

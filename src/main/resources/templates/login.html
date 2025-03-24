@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SHE-SHG Login</title>
-  <link rel="stylesheet" href="../static/login.css">
+  <link rel="stylesheet" th:href="@{../login.css}">
 </head>
 <body>
-  <img class="sheFunds_img" src="../static/images/sheFunds.png" alt="SheFunds" width="80%">
+  <img class="sheFunds_img" th:src="@{../images/sheFunds.png}" alt="SheFunds" width="80%">
   <div class="login-container">
     <!-- <h1>SHE-SHG</h1> -->
-    <form action="./home.html">
+    <form th:action="@{/login}" method="post">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Enter your username" required>
+        <input type="text" name="username" id="username" placeholder="Enter your username" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required>
+        <input type="password" name="password" id="password" placeholder="Enter your password" required>
       </div>
       <button type="submit" class="login-btn">Login</button>
     </form>
-    <p class="signup-text">Don't have an account? <a href="./signUp.html">Sign Up</a></p>
+    <form th:action="@{/SignUp}" method="get">
+      <p class="signup-text">Don't have an account? </p> <button type="submit"> Sign Up </button> 
+    </form>
   </div>
 
-  <script src="../static/script.js"></script>
+  <script th:src="@{../script.js}"></script>
 </body>
 </html>
