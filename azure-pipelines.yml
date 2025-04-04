@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: 'shg_pool'
 
 steps:
 - task: Maven@3
