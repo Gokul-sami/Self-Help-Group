@@ -43,15 +43,29 @@ public class LoginController {
         return "signUp";
     }
 
-        @PostMapping("/SignUp")
+    @PostMapping("/SignUp")
     public String handleSignUp(@RequestParam String username, @RequestParam String password, Model model) {
-        if (serv.findByUsername(username)) { // Check if the user already exists
-            model.addAttribute("error", "User already exists. Please log in.");
-            return "signUp"; // Return to the sign-up page with an error message
+        if (serv.findByUsername(username)) { 
+            model.addAttribute("alertMessage", "User already exists. Please log in.");
+            return "signUp"; 
         } else {
-            serv.save(username, password); // Save the new user
-            model.addAttribute("message", "Sign-up successful! Please log in.");
-            return "redirect:/login"; // Redirect to the login page
+            serv.save(username, password); 
+            return "redirect:/home"; 
         }
+    }
+
+    @GetMapping("/home")
+    public String getHomePage() {
+        return "home"; 
+    }
+
+    @GetMapping("/error")
+    public String getErrorPage() {
+        return "error"; 
+    }
+
+    @GetMapping("/logout")
+    public String getLogoutPage() {
+        return "login"; 
     }
 }
