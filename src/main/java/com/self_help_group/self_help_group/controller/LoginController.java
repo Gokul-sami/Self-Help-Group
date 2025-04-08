@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
@@ -42,16 +43,15 @@ public class LoginController {
         return "signUp";
     }
 
-    @PostMapping("/SignUp")
+        @PostMapping("/SignUp")
     public String handleSignUp(@RequestParam String username, @RequestParam String password, Model model) {
-        // if (serv.findByUsername(username)) {
-        //     model.addAttribute("error", "User already exists. Please log in.");
-        //     return "redirect:/login";
-        // } else {
-        //     serv.save(username, password);
-        //     model.addAttribute("message", "Sign-up successful!");
-        //     return "redirect:/home";
-        // }
-        return "redirect:/home";
+        if (serv.findByUsername(username)) { // Check if the user already exists
+            model.addAttribute("error", "User already exists. Please log in.");
+            return "signUp"; // Return to the sign-up page with an error message
+        } else {
+            serv.save(username, password); // Save the new user
+            model.addAttribute("message", "Sign-up successful! Please log in.");
+            return "redirect:/login"; // Redirect to the login page
+        }
     }
 }

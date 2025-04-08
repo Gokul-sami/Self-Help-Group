@@ -15,12 +15,12 @@ public class LoginService {
         return user;
     }
 
-    // public boolean findByUsername(String username) {
-    //     return rep.existsByUsername(username); 
-    // }
-
-    // public Login save(String username, String password) {
-    //     Login newUser = new Login(username, password);
-    //     return rep.save(newUser);
-    // }
+    public boolean findByUsername(String username) {
+        return rep.existsById(username); // Check if the username exists in the database
+    }
+    
+    public Login save(String username, String password) {
+        Login newUser = new Login(username, password);
+        return rep.save(newUser); // Save the new user to the database
+    }
 }
