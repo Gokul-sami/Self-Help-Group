@@ -8,7 +8,7 @@
   <link rel="stylesheet" th:href="@{../login.css}">
 </head>
 <body>
-  <img class="sheFunds_img" th:src="@{../images/sheFunds.png}" alt="SheFunds" width="80%">
+  <img class="sheFunds_img" th:src="@{../images/sheFunds.png}" alt="SheFunds" width="20%">
   <div class="login-container">
     <!-- <h1>SHE-SHG</h1> -->
     <form th:action="@{/login}" method="post">
@@ -22,9 +22,7 @@
       </div>
       <button type="submit" class="login-btn">Login</button>
     </form>
-    <form th:action="@{/SignUp}" method="get">
-      <p class="signup-text">Don't have an account? </p> <button type="submit"> Sign Up </button> 
-    </form>
+    <p class="signup-text">Don't have an account? <span> <a th:href="@{/SignUp}"> Sign Up </a> </span> </p>
   </div>
 
   <script th:src="@{../script.js}"></script>
