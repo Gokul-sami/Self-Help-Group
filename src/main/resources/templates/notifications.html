@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rufina:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #fbe9e7, #ffe0f0);
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 20px;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    .notification-container {
+      /* max-width: 900px; */
+      width: 60%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 20%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #f10498;
+      font-family: 'Rufina', serif;
+    }
+
+    .logo span {
+      color: orange;
+    }
+
+    .notifications-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .notification {
+      display: flex;
+      align-items: center;
+      background: #ffe6f0;
+      border-left: 6px solid #f10498;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      transition: background 0.3s;
+    }
+
+    .notification:hover {
+      background: #ffd9ec;
+    }
+
+    .notification i {
+      font-size: 1.8rem;
+      color: #f10498;
+      margin-right: 15px;
+    }
+
+    .notification-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0 0;
+      width: 100%;
+    }
+
+    nav {
+      background: linear-gradient(90deg, #ff914d, #f10498);
+      border-radius: 50px;
+      display: flex;
+      justify-content: space-around;
+      width: 300px;
+      padding: 12px 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-icon {
+      color: white;
+      font-size: 1.8rem;
+      padding: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-icon:hover,
+    .nav-icon.active {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+    <div class="notification-container">
+        <header>
+        <h1 class="logo">She<span>Funds</span></h1>
+        </header>
+
+        <section class="notifications-list">
+        <div class="notification">
+            <i class="bi bi-bell-fill"></i>
+            <div class="notification-text">Your loan request has been approved!</div>
+        </div>
+        <div class="notification">
+            <i class="bi bi-bell-fill"></i>
+            <div class="notification-text">A new funding opportunity is available.</div>
+        </div>
+        <div class="notification">
+            <i class="bi bi-bell-fill"></i>
+            <div class="notification-text">Your profile has been updated successfully.</div>
+        </div>
+        <div class="notification">
+            <i class="bi bi-bell-fill"></i>
+            <div class="notification-text">You received a new message from your mentor.</div>
+        </div>
+        </section>
+
+    </div>
+
+  <footer>
+    <nav>
+      <a href="/notifications" class="nav-icon active"><i class="bi bi-bell"></i></a>
+      <a href="/home" class="nav-icon"><i class="bi bi-house"></i></a>
+      <a href="/profile" class="nav-icon"><i class="bi bi-person"></i></a>
+    </nav>
+  </footer>
+</body>
+</html>

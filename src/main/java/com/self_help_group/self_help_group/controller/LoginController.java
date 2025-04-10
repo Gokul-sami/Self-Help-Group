@@ -70,6 +70,11 @@ public class LoginController {
         return "profile";
     }
 
+    @GetMapping("/notifications")
+    public String getNotifications() {
+        return "notifications"; 
+    }
+
     @GetMapping("/resolution")
     public String getResolution() {
         return "resolution"; 
