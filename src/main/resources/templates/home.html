@@ -1,57 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Dashboard</title>
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css}" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" th:href="@{../home.css}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home</title>
+  <link rel="stylesheet" th:href="@{../styles.css}"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <header>
-            <div class="logo">
-                <img th:src="logo.png" alt="Logo">
-            </div>
-            <div class="user-profile">
-                <img th:src="user-avatar.jpg" alt="User Avatar">
-                <div class="user-name">John Doe</div>
-            </div>
-        </header>
+  <div class="container">
+    <header>
+      <h1 class="logo">She<span>Funds</span></h1>
+      <div class="search-box">
+        <input type="text" placeholder="Search anything..." />
+        <button><i class="bi bi-search"></i></button>
+      </div>
+    </header>
 
-        <main>
-            <section class="overview">
-                <h2>Overview</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <i class="fas fa-chart-line"></i>
-                        <h3>Resolution</h3>
-                        <p>Track your financial goals.</p>
-                        <a href="#" class="view-details">View Details</a>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-money-bill-trend-up"></i>
-                        <h3>Ledger</h3>
-                        <p>Manage your transactions.</p>
-                        <a href="#" class="view-details">View Details</a>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-piggy-bank"></i>
-                        <h3>Monthly Savings</h3>
-                        <p>See your savings progress.</p>
-                        <a href="#" class="view-details">View Details</a>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <main>
+      <div class="card-grid">
+        <a th:href="@{/resolution}" class="card">
+          <span class="card-title">Resolution</span>
+          <span class="card-icon">→</span>
+        </a>
+        <a th:href="@{/ledger}" class="card">
+          <span class="card-title">Ledger</span>
+          <span class="card-icon">→</span>
+        </a>
+        <a th:href="@{/monthly-savings}" class="card">
+          <span class="card-title">Monthly Savings</span>
+          <span class="card-icon">→</span>
+        </a>
+      </div>
+    </main>
 
-        <nav>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-            </ul>
-        </nav>
-    </div>
+    <footer>
+      <nav>
+        <a th:href="@{/notifications}" class="nav-icon"><i class="bi bi-bell"></i></a>
+        <a th:href="@{/home}" class="nav-icon active"><i class="bi bi-house"></i></a>
+        <a th:href="@{/profile}" class="nav-icon"><i class="bi bi-person"></i></a>
+      </nav>
+    </footer>
+  </div>
 </body>
 </html>
