@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resolution Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #fff3f8;
+    }
+
+    h1 {
+      text-align: center;
+      color: #cc007a;
+      margin-bottom: 30px;
+    }
+
+    .resolution-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+
+    .resolution {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .resolution h3 {
+      margin-top: 0;
+      color: #ff007f;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(to right, #ff7e5f, #ff00cc);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+    }
+
+    .form-popup {
+      display: none;
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 350px;
+      z-index: 1000;
+    }
+
+    .form-popup h2 {
+      margin-top: 0;
+      color: #cc007a;
+    }
+
+    .form-popup input,
+    .form-popup textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    .form-popup button {
+      background: #ff00cc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .form-popup button:hover {
+      background: #cc007a;
+    }
+
+    .sticky-back-btn {
+      position: sticky;
+      top: 20px;
+      left: 20px;
+      z-index: 999;
+      align-self: flex-start;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Resolution</h1>
+  <div class="resolution-list" id="resolutionList">
+    <button onclick="history.back()" class="sticky-back-btn" style="padding: 10px 15px; background: #cc007a; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
+      Back
+    </button>
+    <!-- Existing resolutions can be inserted here dynamically -->
+    <div class="resolution">
+      <h3>Budget Allocation - Q1 Meeting</h3>
+      <p><strong>Description:</strong> Discussed funding for upcoming women safety drives.</p>
+      <p><strong>Date:</strong> 2025-04-10 | <strong>Time:</strong> 10:00 - 11:00 AM</p>
+      <p><strong>Topics:</strong> Campaigns, Tech needs, Local outreach</p>
+      <p><strong>Members Attended:</strong> Priya, Neha, Asha</p>
+    </div>
+  </div>
+
+  <div class="fab" onclick="toggleForm()">+</div>
+
+  <div class="form-popup" id="formPopup">
+    <h2>Create Resolution</h2>
+    <input type="text" id="resName" placeholder="Resolution Name" required />
+    <textarea id="resDesc" placeholder="Description"></textarea>
+    <input type="date" id="resDate" />
+    <input type="time" id="resStart" placeholder="Start Time" />
+    <input type="time" id="resEnd" placeholder="End Time" />
+    <input type="text" id="resTopics" placeholder="Major Discussion Topics" />
+    <input type="text" id="resMembers" placeholder="Members Attended (comma separated)" />
+    <button onclick="addResolution()">Add</button>
+  </div>
+
+  <footer>
+    <nav>
+      <a th:href="@{/notifications}" class="nav-icon"><i class="bi bi-bell"></i></a>
+      <a th:href="@{/home}" class="nav-icon"><i class="bi bi-house"></i></a>
+      <a th:href="@{/profile}" class="nav-icon active"><i class="bi bi-person"></i></a>
+    </nav>
+  </footer>
+
+  <script>
+    function toggleForm() {
+      const form = document.getElementById('formPopup');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addResolution() {
+      const name = document.getElementById('resName').value;
+      const desc = document.getElementById('resDesc').value;
+      const date = document.getElementById('resDate').value;
+      const start = document.getElementById('resStart').value;
+      const end = document.getElementById('resEnd').value;
+      const topics = document.getElementById('resTopics').value;
+      const members = document.getElementById('resMembers').value;
+
+      if (!name || !desc || !date || !start || !end || !topics || !members) {
+        alert("Please fill all fields!");
+        return;
+      }
+
+      const container = document.getElementById('resolutionList');
+      const div = document.createElement('div');
+      div.className = 'resolution';
+      div.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>Description:</strong> ${desc}</p>
+        <p><strong>Date:</strong> ${date} | <strong>Time:</strong> ${start} - ${end}</p>
+        <p><strong>Topics:</strong> ${topics}</p>
+        <p><strong>Members Attended:</strong> ${members}</p>
+      `;
+      container.appendChild(div);
+
+      // Reset form and close
+      document.getElementById('resName').value = '';
+      document.getElementById('resDesc').value = '';
+      document.getElementById('resDate').value = '';
+      document.getElementById('resStart').value = '';
+      document.getElementById('resEnd').value = '';
+      document.getElementById('resTopics').value = '';
+      document.getElementById('resMembers').value = '';
+      toggleForm();
+    }
+  </script>
+</body>
+</html>

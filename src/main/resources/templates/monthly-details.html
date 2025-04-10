@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monthly Contribution Details</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      color: #333;
+      padding: 20px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background-color: #007b5e;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #005b43;
+    }
+
+    h1 {
+      text-align: center;
+      color: #cc007a;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .add-btn {
+      padding: 10px 20px;
+      background-color: #ff5500;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      background-color: #e04500;
+    }
+
+    .contributions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .contribution-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .contribution-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .contribution-card h3 {
+      margin-top: 0;
+      color: #ff5500;
+      font-size: 1.4rem;
+    }
+
+    .contribution-card p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 16px;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .modal-content button {
+      padding: 10px 20px;
+      background-color: #007b5e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="monthly-savings.html" class="back-btn">← Back to Monthly View</a>
+  <h1 id="headerTitle">Monthly Details</h1>
+
+  <div class="actions">
+    <button class="add-btn" onclick="openModal()">+ Add Contribution</button>
+  </div>
+
+  <div class="contributions" id="contributionsContainer">
+    <!-- Contributions will be rendered here -->
+  </div>
+
+  <!-- Modal Form -->
+  <div id="contributionModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>Add New Contribution</h3>
+      <input type="text" id="memberName" placeholder="Member Name" required />
+      <input type="date" id="contributionDate" required />
+      <input type="number" id="amount" placeholder="Amount (₹)" required />
+      <input type="text" id="interest" placeholder="Interest (if any)" />
+      <button onclick="addContribution()">Add</button>
+    </div>
+  </div>
+
+  <script>
+    const queryParams = new URLSearchParams(window.location.search);
+    const year = queryParams.get("year");
+    const month = queryParams.get("month");
+
+    document.getElementById("headerTitle").innerText = `${month} ${year} – Member Contributions`;
+
+    const container = document.getElementById("contributionsContainer");
+
+    const dummyData = [
+      { name: "Aaradhya", date: "2025-04-05", amount: "1000", interest: "₹0" },
+      { name: "Sneha", date: "2025-04-06", amount: "1000", interest: "₹120 (loan)" },
+    ];
+
+    function renderCard(data) {
+      const div = document.createElement("div");
+      div.className = "contribution-card";
+      div.innerHTML = `
+        <h3>${data.name}</h3>
+        <p><strong>Date of Contribution:</strong> ${data.date}</p>
+        <p><strong>Amount:</strong> ₹${data.amount}</p>
+        <p><strong>Interest:</strong> ${data.interest || "₹0"}</p>
+      `;
+      container.appendChild(div);
+    }
+
+    dummyData.forEach(renderCard);
+
+    // Modal Controls
+    function openModal() {
+      document.getElementById("contributionModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("contributionModal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == document.getElementById("contributionModal")) {
+        closeModal();
+      }
+    };
+
+    function addContribution() {
+      const name = document.getElementById("memberName").value.trim();
+      const date = document.getElementById("contributionDate").value;
+      const amount = document.getElementById("amount").value;
+      const interest = document.getElementById("interest").value.trim();
+
+      if (!name || !date || !amount) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      const newEntry = {
+        name,
+        date,
+        amount,
+        interest: interest || "₹0"
+      };
+
+      renderCard(newEntry);
+      closeModal();
+
+      // Clear form
+      document.getElementById("memberName").value = "";
+      document.getElementById("contributionDate").value = "";
+      document.getElementById("amount").value = "";
+      document.getElementById("interest").value = "";
+    }
+  </script>
+
+</body>
+</html>

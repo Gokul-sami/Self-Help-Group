@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile</title>
+  <link rel="stylesheet" th:href="@{../styles.css}" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rufina:wght@700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="profile-container">
+
+    <header>
+      <h1 class="logo">She<span>Funds</span></h1>
+    </header>
+
+    <!-- Profile Content -->
+    <section class="profile-section">
+      <div class="profile-image">
+        <img src="https://i.pinimg.com/736x/dc/31/a6/dc31a6a049e827db0c71391b7c4c2897.jpg" alt="Profile Image" />
+      </div>
+      <div class="profile-info">
+        <h1 th:text="${username}">Username</h1>
+      </div>
+    </section>
+
+    <footer>
+        <nav>
+          <a th:href="@{/notifications}" class="nav-icon"><i class="bi bi-bell"></i></a>
+          <a th:href="@{/home}" class="nav-icon"><i class="bi bi-house"></i></a>
+          <a th:href="@{/profile}" class="nav-icon active"><i class="bi bi-person"></i></a>
+        </nav>
+    </footer>
+
+  </div>
+</body>
+</html>

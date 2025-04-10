@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Monthly Savings</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #c3ecff, #f6f9ff);
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #cc007a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .dropdown {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    select {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .months-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 25px;
+    }
+
+    .month-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      transition: all 0.25s ease-in-out;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+    }
+
+    .month-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <header>Monthly Savings</header>
+
+  <div class="container">
+    <div class="dropdown">
+      <label for="yearSelect"><strong>Select Year:</strong> </label>
+      <select id="yearSelect" onchange="updateYear()">
+        <script>
+          const currentYear = new Date().getFullYear();
+          for (let y = currentYear; y >= 2020; y--) {
+            document.write(`<option value="${y}">${y}</option>`);
+          }
+        </script>
+      </select>
+    </div>
+
+    <div class="months-container" id="monthsContainer">
+      <script>
+        const months = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+        months.forEach((month, index) => {
+          document.write(`
+            <div class="month-card" onclick="goToMonth(${index})">
+              ${month}
+            </div>
+          `);
+        });
+      </script>
+    </div>
+  </div>
+
+  <script>
+    function updateYear() {
+      const year = document.getElementById("yearSelect").value;
+      console.log("Year changed:", year);
+    }
+
+    function goToMonth(index) {
+      const year = document.getElementById("yearSelect").value;
+      const monthName = months[index];
+      window.location.href = `monthly-details.html?year=${year}&month=${monthName}`;
+    }
+  </script>
+
+</body>
+</html>
