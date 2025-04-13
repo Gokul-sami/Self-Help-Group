@@ -1,6 +1,7 @@
 package com.self_help_group.self_help_group.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.self_help_group.self_help_group.domain.Resolution;
+import com.self_help_group.self_help_group.domain.Savings;
+import com.self_help_group.self_help_group.domain.Ledger;
 import com.self_help_group.self_help_group.domain.Login;
+import com.self_help_group.self_help_group.service.LedgerService;
 import com.self_help_group.self_help_group.service.LoginService;
 import com.self_help_group.self_help_group.service.ResolutionService;
+import com.self_help_group.self_help_group.service.SavingsService;
 
 import jakarta.servlet.http.Cookie;
 
@@ -23,6 +28,10 @@ public class LoginController {
     private LoginService serv;
     @Autowired
     private ResolutionService servres;
+    @Autowired
+    private LedgerService servledg;
+    @Autowired
+    private SavingsService servsave;
     private Login user = new Login();
 
     @GetMapping("/")
@@ -102,8 +111,27 @@ public class LoginController {
     }
 
     @GetMapping("/ledger")
-    public String getLedger() {
-        return "ledger"; 
+    public String getLedger(Model model, jakarta.servlet.http.HttpServletRequest request) {
+        List<?> ledger = servledg.getLedger();
+        model.addAttribute("ledger", ledger);
+        return "ledger";
+    }
+
+    @PostMapping("/ledger")
+    public String addLedger(@RequestBody Ledger ledgerData, Model model) {
+        System.out.println("Received Ledger: " + ledgerData);
+
+        Ledger ledgerObj = servledg.addLedger(
+            ledgerData.getDate(),
+            ledgerData.getDescription(),
+            ledgerData.getCredit(),
+            ledgerData.getDebit(),
+            ledgerData.getBalance()
+        );
+
+        model.addAttribute("ledger", ledgerObj);
+        System.out.println("Ledger added successfully!");
+        return "Ledger";
     }
 
     @GetMapping("/resolution")
@@ -133,8 +161,26 @@ public class LoginController {
     }
 
     @GetMapping("/monthly-savings")
-    public String getMonthySavings() {
-        return "monthly-savings"; 
+    public String getMonthySavings(Model model, jakarta.servlet.http.HttpServletRequest request) {
+        List<Savings> savings = servsave.getSavings();
+        savings = savings.stream()
+                     .filter(s -> s.getYear() != 0 && s.getMonth() != null && !s.getMonth().isEmpty())
+                     .collect(Collectors.toList());
+        model.addAttribute("savings", savings);
+        return "monthly-savings";
+    }
+
+    @PostMapping("/monthly-savings")
+    public String addSavings(@RequestBody Savings savingsData, Model model) {
+
+        Savings savingsObj = servsave.addSavings(
+            savingsData.getYear(),
+            savingsData.getMonth(),
+            savingsData.getAmount()
+        );
+
+        model.addAttribute("savings", savingsObj);
+        return "monthy-savings";
     }
 
     @GetMapping("/monthly-details")

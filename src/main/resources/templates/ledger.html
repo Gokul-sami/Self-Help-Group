@@ -30,6 +30,79 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, #ff7e5f, #ff00cc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        .form-popup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            max-width: 350px;
+            z-index: 1000;
+        }
+
+        .form-popup h2 {
+            margin-top: 0;
+            color: #cc007a;
+        }
+
+        .form-popup input,
+        .form-popup textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .form-popup button {
+            background: #ff00cc;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .form-popup button:hover {
+            background: #cc007a;
+        }
+
+        .sticky-back-btn {
+            position: sticky;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            align-self: flex-start;
+        }
     </style>
 </head>
 <body>
@@ -44,34 +117,77 @@
             <tr>
                 <th>Date</th>
                 <th>Description</th>
-                <th>Credit (INR)</th>
-                <th>Debit (INR)</th>
-                <th>Balance (INR)</th>
+                <th>Credit</th>
+                <th>Debit</th>
+                <th>Balance</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>2025-04-01</td>
-                <td>Initial Deposit</td>
-                <td>5000</td>
-                <td>0</td>
-                <td>5000</td>
-            </tr>
-            <tr>
-                <td>2025-04-03</td>
-                <td>Purchase of Materials</td>
-                <td>0</td>
-                <td>1200</td>
-                <td>3800</td>
-            </tr>
-            <tr>
-                <td>2025-04-06</td>
-                <td>Member Contribution</td>
-                <td>2500</td>
-                <td>0</td>
-                <td>6300</td>
+            <tr th:each="ledger : ${ledger}">
+                <td th:text="${ledger.date}">date</td>
+                <td th:text="${ledger.description}">description</td>
+                <td th:text="${ledger.credit}">credit</td>
+                <td th:text="${ledger.debit}">debit</td>
+                <td th:text="${ledger.balance}">balance</td>
             </tr>
         </tbody>
     </table>
+
+    <div class="fab" onclick="toggleForm()">+</div>
+
+    <div class="form-popup" id="formPopup">
+        <h2>Add to Ledger</h2>
+        <input type="date" id="date" />
+        <textarea id="description" placeholder="Description"></textarea>
+        <input type="number" id="credit" placeholder="Credit" />
+        <input type="number" id="debit" placeholder="Debit" />
+        <input type="number" id="balance" placeholder="Balance" />
+        <button onclick="sendLedger()">Add</button>
+    </div>
+
+    <script>
+        function toggleForm() {
+        const form = document.getElementById('formPopup');
+        form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+
+        async function sendLedger() {
+        const date = document.getElementById('date').value;
+        const description = document.getElementById('description').value;
+        const credit = document.getElementById('credit').value;
+        const debit = document.getElementById('debit').value;
+        const balance = document.getElementById('balance').value;
+
+        const LedgerData = {
+            date: date,
+            description: description,
+            credit: credit,
+            debit: debit,
+            balance: balance  
+        };
+        console.log("Ledger Data in html:", LedgerData);
+
+        try {
+            const response = await fetch('/ledger', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(LedgerData)
+            });
+
+            console.log("Response in html:", response);
+            if (response.ok) {
+            alert("Details added successfully!");
+            location.reload(); // Reload the page to reflect the new resolution
+            } else {
+            alert("Failed to add to ledger. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        }
+        }
+    </script>
 </body>
 </html>

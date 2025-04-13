@@ -8,113 +8,204 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #c3ecff;
-      min-height: 100vh;
-    }
-
-    header {
-      background-color: #cc007a;
-      color: white;
       padding: 20px;
+      background-color: #c3ecff;
+    }
+    
+    h1 {
       text-align: center;
-      font-size: 2rem;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      color: #cc007a;
+      margin-bottom: 30px;
     }
-
-    .container {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
+    
+    /* Filters */
+    .filters form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
     }
-
-    .dropdown {
-      text-align: center;
-      margin-bottom: 40px;
+    
+    .filters input,
+    .filters select,
+    .filters button {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
     }
-
-    select {
-      padding: 12px 20px;
+    
+    .filters button {
+      background: #ff00cc;
+      color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      background-color: #ffffff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      font-weight: bold;
       cursor: pointer;
     }
-
-    .months-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 25px;
+    
+    .filters button:hover {
+      background: #cc007a;
     }
-
-    .month-card {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
+    
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    
+    table th, table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    
+    table th {
+      background-color: #ffe6f3;
+      color: #cc007a;
+    }
+    
+    /* FAB */
+    .fab {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      background: linear-gradient(to right, #ff7e5f, #ff00cc);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 18px;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease;
+    }
+    
+    .fab:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Popup Form */
+    .form-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 350px;
+      width: 90%;
+      z-index: 1000;
+    }
+    
+    .form-popup h2 {
+      margin-top: 0;
+      color: #cc007a;
       text-align: center;
-      padding: 30px 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #333;
-      transition: all 0.25s ease-in-out;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .form-popup input,
+    .form-popup button {
+      margin-bottom: 12px;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+    }
+    
+    .form-popup button {
+      background: #ff00cc;
+      color: white;
+      border: none;
+      font-weight: bold;
       cursor: pointer;
     }
-
-    .month-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 255, 255, 0.9);
+    
+    .form-popup button:hover {
+      background: #cc007a;
     }
-  </style>
+  </style>   
 </head>
 <body>
 
-  <header>Monthly Savings</header>
+  <h1>Monthly Savings</h1>
 
-  <div class="container">
-    <button onclick="history.back()" class="sticky-back-btn" style="padding: 10px 15px; background: #cc007a; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
-      Back
-    </button>
-    <div class="dropdown">
-      <label for="yearSelect"><strong>Select Year:</strong> </label>
-      <select id="yearSelect" onchange="updateYear()">
-        <script>
-          const currentYear = new Date().getFullYear();
-          for (let y = currentYear; y >= 2020; y--) {
-            document.write(`<option value="${y}">${y}</option>`);
-          }
-        </script>
-      </select>
-    </div>
+  <!-- Savings Table -->
+  <table style="margin: auto; margin-top: 50px; border-collapse: collapse;">
+      <thead style="background-color: #f2f2f2;">
+          <tr>
+              <th style="padding: 10px;">Year</th>
+              <th style="padding: 10px;">Month</th>
+              <th style="padding: 10px;">Amount Saved</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr th:each="entry : ${savings}">
+              <td th:text="${entry.year}" style="padding: 10px;"></td>
+              <td th:text="${entry.month}" style="padding: 10px;"></td>
+              <td th:text="${entry.amount}" style="padding: 10px;"></td>
+          </tr>
+      </tbody>
+  </table>
 
-    <div class="months-container" id="monthsContainer">
-      <script>
-        const months = ["January", "February", "March", "April", "May", "June",
-                        "July", "August", "September", "October", "November", "December"];
-        months.forEach((month, index) => {
-          document.write(`
-            <div class="month-card" onclick="goToMonth(${index})">
-              ${month}
-            </div>
-          `);
-        });
-      </script>
-    </div>
+
+  <!-- Floating Action Button to Add Savings -->
+  <div class="fab" onclick="toggleForm()">+</div>
+
+  <!-- Add Savings Form (Popup) -->
+  <div class="form-popup" id="formPopup">
+    <h2>Add Savings</h2>
+    <input type="number" id="year" placeholder="Year" />
+    <input type="text" id="month" placeholder="Month" />
+    <input type="number" id="amount" placeholder="Amount Saved" />
+    <button onclick="submitSavings()">Submit</button>
   </div>
 
   <script>
-    function updateYear() {
-      const year = document.getElementById("yearSelect").value;
-      console.log("Year changed:", year);
+    function toggleForm() {
+      const form = document.getElementById('formPopup');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
     }
 
-    function goToMonth(index) {
-      const year = document.getElementById("yearSelect").value;
-      const monthName = months[index];
-      window.location.href = `monthly-details.html?year=${year}&month=${monthName}`;
+    async function submitSavings() {
+      const year = document.getElementById('year').value;
+      const month = document.getElementById('month').value;
+      const amount = document.getElementById('amount').value;
+
+      const savingsData = {
+        year: year,
+        month: month,
+        amount: amount
+      };
+
+      try {
+        const response = await fetch('/monthly-savings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(savingsData)
+        });
+
+        if (response.ok) {
+          alert("Savings added successfully!");
+          location.reload(); 
+        } else {
+          alert("Failed to add savings. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      }
     }
   </script>
 
