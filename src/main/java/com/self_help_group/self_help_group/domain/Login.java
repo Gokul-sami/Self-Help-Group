@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-// to connect to db with functions
 @Entity
 @Table(name = "users")
 public class Login {

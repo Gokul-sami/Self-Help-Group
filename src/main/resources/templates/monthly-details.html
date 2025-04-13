@@ -8,24 +8,20 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #eef2f3, #f5f7fa);
+      background-color: #c3ecff;
       color: #333;
       padding: 20px;
     }
 
     .back-btn {
       display: inline-block;
-      background-color: #007b5e;
+      background-color: #cc007a;
       color: white;
       padding: 10px 20px;
       border-radius: 10px;
       text-decoration: none;
       margin-bottom: 20px;
       transition: background 0.3s ease;
-    }
-
-    .back-btn:hover {
-      background-color: #005b43;
     }
 
     h1 {
@@ -136,8 +132,9 @@
 </head>
 <body>
 
-  <a href="monthly-savings.html" class="back-btn">← Back to Monthly View</a>
   <h1 id="headerTitle">Monthly Details</h1>
+
+  <a href="/home" class="back-btn">Back</a>
 
   <div class="actions">
     <button class="add-btn" onclick="openModal()">+ Add Contribution</button>

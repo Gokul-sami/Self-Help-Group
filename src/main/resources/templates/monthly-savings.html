@@ -9,7 +9,7 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #c3ecff, #f6f9ff);
+      background-color: #c3ecff;
       min-height: 100vh;
     }
 
@@ -75,6 +75,9 @@
   <header>Monthly Savings</header>
 
   <div class="container">
+    <button onclick="history.back()" class="sticky-back-btn" style="padding: 10px 15px; background: #cc007a; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
+      Back
+    </button>
     <div class="dropdown">
       <label for="yearSelect"><strong>Select Year:</strong> </label>
       <select id="yearSelect" onchange="updateYear()">

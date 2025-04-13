@@ -10,6 +10,7 @@ import com.self_help_group.self_help_group.repository.LoginRepo;
 public class LoginService {
     @Autowired
     private LoginRepo rep;
+    
     public Login log(String username, String password){
         Login user = rep.findByUsernameAndPassword(username, password);
         return user;
@@ -21,10 +22,11 @@ public class LoginService {
 
     public Login findByUsername(String username) {
         return rep.findById(username).orElse(null);
-    }    
+    }
     
     public Login save(String username, String password) {
         Login newUser = new Login(username, password);
         return rep.save(newUser); 
     }
+
 }

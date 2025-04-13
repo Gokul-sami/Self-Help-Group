@@ -9,7 +9,7 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 20px;
-      background: #fff3f8;
+      background-color: #c3ecff;
     }
 
     h1 {
@@ -119,13 +119,13 @@
     <button onclick="history.back()" class="sticky-back-btn" style="padding: 10px 15px; background: #cc007a; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
       Back
     </button>
-    <!-- Existing resolutions can be inserted here dynamically -->
-    <div class="resolution">
-      <h3>Budget Allocation - Q1 Meeting</h3>
-      <p><strong>Description:</strong> Discussed funding for upcoming women safety drives.</p>
-      <p><strong>Date:</strong> 2025-04-10 | <strong>Time:</strong> 10:00 - 11:00 AM</p>
-      <p><strong>Topics:</strong> Campaigns, Tech needs, Local outreach</p>
-      <p><strong>Members Attended:</strong> Priya, Neha, Asha</p>
+    <!-- Resolutions will be dynamically rendered here -->
+    <div th:each="resolution : ${resolutions}" class="resolution">
+      <h3 th:text="${resolution.res_name}">Resolution Name</h3>
+      <p><strong>Description:</strong> <span th:text="${resolution.description}">Description</span></p>
+      <p><strong>Date:</strong> <span th:text="${resolution.res_date}">Date</span> | <strong>Time:</strong> <span th:text="${resolution.res_start_time}">Start Time</span> - <span th:text="${resolution.res_end_time}">End Time</span></p>
+      <p><strong>Topics:</strong> <span th:text="${resolution.resTopics}">Topics</span></p>
+      <p><strong>Members Attended:</strong> <span th:text="${resolution.resMembers}">Members</span></p>
     </div>
   </div>
 
@@ -134,14 +134,63 @@
   <div class="form-popup" id="formPopup">
     <h2>Create Resolution</h2>
     <input type="text" id="resName" placeholder="Resolution Name" required />
-    <textarea id="resDesc" placeholder="Description"></textarea>
-    <input type="date" id="resDate" />
+    <textarea id="resDescription" placeholder="Description"></textarea>
+    <input type="date" id="res_date" />
     <input type="time" id="resStart" placeholder="Start Time" />
     <input type="time" id="resEnd" placeholder="End Time" />
     <input type="text" id="resTopics" placeholder="Major Discussion Topics" />
     <input type="text" id="resMembers" placeholder="Members Attended (comma separated)" />
-    <button onclick="addResolution()">Add</button>
+    <button onclick="sendResolution()">Add</button>
   </div>
+
+  <script>
+    function toggleForm() {
+      const form = document.getElementById('formPopup');
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+
+    async function sendResolution() {
+      const name = document.getElementById('resName').value;
+      const description = document.getElementById('resDescription').value;
+      const date = document.getElementById('res_date').value;
+      const start = document.getElementById('resStart').value;
+      const end = document.getElementById('resEnd').value;
+      const topics = document.getElementById('resTopics').value;
+      const members = document.getElementById('resMembers').value;
+
+      const resolutionData = {
+        res_name: name,
+        description: description,
+        res_date: date,
+        res_start_time: start,
+        res_end_time: end,
+        resTopics: topics,
+        resMembers: members
+      };
+      console.log("Resolution Data in html:", resolutionData);
+
+      try {
+        const response = await fetch('/resolution', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(resolutionData)
+        });
+
+        console.log("Response in html:", response);
+        if (response.ok) {
+          alert("Resolution added successfully!");
+          location.reload(); // Reload the page to reflect the new resolution
+        } else {
+          alert("Failed to add resolution. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      }
+    }
+  </script>
 
   <footer>
     <nav>
@@ -150,49 +199,5 @@
       <a th:href="@{/profile}" class="nav-icon active"><i class="bi bi-person"></i></a>
     </nav>
   </footer>
-
-  <script>
-    function toggleForm() {
-      const form = document.getElementById('formPopup');
-      form.style.display = form.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function addResolution() {
-      const name = document.getElementById('resName').value;
-      const desc = document.getElementById('resDesc').value;
-      const date = document.getElementById('resDate').value;
-      const start = document.getElementById('resStart').value;
-      const end = document.getElementById('resEnd').value;
-      const topics = document.getElementById('resTopics').value;
-      const members = document.getElementById('resMembers').value;
-
-      if (!name || !desc || !date || !start || !end || !topics || !members) {
-        alert("Please fill all fields!");
-        return;
-      }
-
-      const container = document.getElementById('resolutionList');
-      const div = document.createElement('div');
-      div.className = 'resolution';
-      div.innerHTML = `
-        <h3>${name}</h3>
-        <p><strong>Description:</strong> ${desc}</p>
-        <p><strong>Date:</strong> ${date} | <strong>Time:</strong> ${start} - ${end}</p>
-        <p><strong>Topics:</strong> ${topics}</p>
-        <p><strong>Members Attended:</strong> ${members}</p>
-      `;
-      container.appendChild(div);
-
-      // Reset form and close
-      document.getElementById('resName').value = '';
-      document.getElementById('resDesc').value = '';
-      document.getElementById('resDate').value = '';
-      document.getElementById('resStart').value = '';
-      document.getElementById('resEnd').value = '';
-      document.getElementById('resTopics').value = '';
-      document.getElementById('resMembers').value = '';
-      toggleForm();
-    }
-  </script>
 </body>
 </html>

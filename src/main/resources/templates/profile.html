@@ -16,12 +16,12 @@
     </header>
 
     <!-- Profile Content -->
-    <section class="profile-section">
+    <section style="display: flex;flex-direction: column;justify-content: center;align-items: center;" class="profile-section">
       <div class="profile-image">
         <img src="https://i.pinimg.com/736x/dc/31/a6/dc31a6a049e827db0c71391b7c4c2897.jpg" alt="Profile Image" />
       </div>
       <div class="profile-info">
-        <h1 th:text="${username}">Username</h1>
+        <h1 th:text="${username}">${username}</h1>
       </div>
     </section>
 

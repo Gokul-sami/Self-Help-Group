@@ -5,7 +5,8 @@
 }
 
 body {
-  background: linear-gradient(to right, #fbe9e7, #ffe0f0);
+  /* background: linear-gradient(to right, #fbe9e7, #ffe0f0); */
+  background-color: #d6f1fe;
   font-family: 'Segoe UI', sans-serif;
   color: #333;
   min-height: 100vh;
