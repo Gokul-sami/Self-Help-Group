@@ -100,7 +100,13 @@ public class LoginController {
     @GetMapping("/profile")
     public String getProfilePage(Model model, jakarta.servlet.http.HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        String username = cookies[7].getValue();
+        String username = null;
+        for (Cookie cookie : cookies) {
+            if ("username".equals(cookie.getName())) {
+            username = cookie.getValue();
+            break;
+            }
+        }
         model.addAttribute("username", username);
         return "profile";
     }
