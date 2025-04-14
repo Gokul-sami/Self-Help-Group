@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  # name: 'shg_pool'
+  name: 'shg_pool'
 
 steps:
 - task: Maven@4
