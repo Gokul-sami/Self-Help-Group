@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.self_help_group.self_help_group.domain.Savings;
 
 @Repository
-public interface SavingsRepo extends JpaRepository<Savings, Double>  {
+public interface SavingsRepo extends JpaRepository<Savings, String>  {
     public List<Savings> findAll();
 }
