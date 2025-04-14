@@ -186,7 +186,7 @@ public class LoginController {
         );
 
         model.addAttribute("savings", savingsObj);
-        return "monthy-savings";
+        return "monthly-savings";
     }
 
     @GetMapping("/monthly-details")

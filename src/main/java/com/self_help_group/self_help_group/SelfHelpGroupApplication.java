@@ -9,5 +9,4 @@ public class SelfHelpGroupApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SelfHelpGroupApplication.class, args);
 	}
-
 }
